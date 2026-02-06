@@ -37,8 +37,8 @@ Affiche les prochains trains directs entre **Zürich HB** et **Bern** (et invers
 
 ### Méthode 2 : Import direct (recommandé)
 1. Sur iPhone, ouvrir ce lien dans Safari :
-   - [Widget SBB Thalwil HB](https://raw.githubusercontent.com/VOTRE_USERNAME/sbb-widgets-scriptable/main/Widget%20SBB%20Thalwil%20HB.js)
-   - [Widget SBB Bern HB](https://raw.githubusercontent.com/VOTRE_USERNAME/sbb-widgets-scriptable/main/Widget%20SBB%20Bern%20HB.js)
+   - [Widget SBB Thalwil HB](https://raw.githubusercontent.com/ArnaudBon20/sbb-widgets-scriptable/main/Widget%20SBB%20Thalwil%20HB.js)
+   - [Widget SBB Bern HB](https://raw.githubusercontent.com/ArnaudBon20/sbb-widgets-scriptable/main/Widget%20SBB%20Bern%20HB.js)
 2. Scriptable proposera d'importer le script automatiquement
 
 ## Personnalisation
