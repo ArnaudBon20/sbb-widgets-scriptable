@@ -134,7 +134,7 @@ const upcoming = allConns
 
 let widget = new ListWidget();
 widget.backgroundColor = DIRECT_BG;
-widget.refreshAfterDate = new Date(Date.now() + 10 * 60 * 1000);
+widget.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);
 widget.setPadding(0, 0, 0, 0);
 
 // Deep Link zur SBB App mit spezifischer Suche
@@ -172,8 +172,7 @@ const addRow = (conn, showExit, isInTransitRow) => {
   let cdLabel;
   if (isInTransitRow) {
     const arrDate = new Date(conn.to.arrival);
-    const arrMin = Math.ceil((arrDate - new Date()) / 60000);
-    cdLabel = "→" + arrMin + "'";
+    cdLabel = "→" + String(arrDate.getHours()).padStart(2, '0') + ":" + String(arrDate.getMinutes()).padStart(2, '0');
   } else {
     cdLabel = getCountdown(depDate);
   }
