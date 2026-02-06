@@ -1,7 +1,6 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: train;
-(async () => {
 // --- ZEITSTEUERUNG LOGIK ---
 const now = new Date();
 const hour = now.getHours();
@@ -270,4 +269,3 @@ if (config.runsInWidget) {
   widget.presentSmall();
 }
 Script.complete();
-})();

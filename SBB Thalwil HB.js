@@ -36,8 +36,9 @@ if (!code && fm.fileExists(cachePath)) {
 }
 
 if (code) {
-  // Exécuter le code
-  eval(code);
+  // Exécuter le code via Function constructor
+  const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+  await new AsyncFunction(code)();
 } else {
   // Erreur
   let widget = new ListWidget();
