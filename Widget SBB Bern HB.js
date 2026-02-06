@@ -154,19 +154,18 @@ widget.addSpacer(2);
 // Fonction pour afficher une ligne
 const addRow = (conn, showExit, isInTransitRow) => {
   let rowOuter = widget.addStack();
-  // Couleur: vert si en transit, sinon bleu foncé
   rowOuter.backgroundColor = isInTransitRow ? IN_TRANSIT_BG : DIRECT_BG;
-  rowOuter.setPadding(8, 10, 8, 10);
+  rowOuter.setPadding(6, 8, 6, 8);
   rowOuter.layoutHorizontally();
   rowOuter.centerAlignContent();
   
-  // 1. Zeit & Countdown
+  // 1. Zeit & Countdown (largeur fixe)
   let timeStack = rowOuter.addStack();
   timeStack.layoutVertically();
-  timeStack.size = new Size(38, 0);
+  timeStack.size = new Size(42, 0);
   const depDate = new Date(conn.from.departure);
   let topTime = timeStack.addText(String(depDate.getHours()).padStart(2, '0') + ":" + String(depDate.getMinutes()).padStart(2, '0'));
-  topTime.font = Font.boldSystemFont(10);
+  topTime.font = Font.boldSystemFont(11);
   topTime.textColor = TEXT_WHITE;
   
   let cdLabel;
@@ -177,17 +176,16 @@ const addRow = (conn, showExit, isInTransitRow) => {
     cdLabel = getCountdown(depDate);
   }
   let cdTxt = timeStack.addText(cdLabel);
-  cdTxt.font = Font.systemFont(7);
+  cdTxt.font = Font.systemFont(8);
   cdTxt.textColor = isInTransitRow ? Color.yellow() : (cdLabel === "Jetzt" ? Color.yellow() : TEXT_GRAY);
   
-  rowOuter.addSpacer(4);
-  
-  // 2. Gleis (arriv\u00e9e si en transit, d\u00e9part sinon)
+  // 2. Gleis (largeur fixe, centré)
   let gleisStack = rowOuter.addStack();
-  gleisStack.size = new Size(32, 0);
+  gleisStack.size = new Size(36, 0);
+  gleisStack.layoutHorizontally();
+  gleisStack.addSpacer();
   let platform;
   if (isInTransitRow) {
-    // Quai d'arriv\u00e9e
     platform = conn.to.platform;
     if (!platform && conn.sections && conn.sections.length > 0) {
       const lastSection = conn.sections[conn.sections.length - 1];
@@ -200,39 +198,41 @@ const addRow = (conn, showExit, isInTransitRow) => {
   let pTxt = gleisStack.addText("Gl." + platform);
   pTxt.font = Font.systemFont(9);
   pTxt.textColor = TEXT_GRAY;
+  gleisStack.addSpacer();
 
-  rowOuter.addSpacer();
-
-  // 3. Dauer
+  // 3. Dauer (largeur fixe, centré)
   let durStack = rowOuter.addStack();
-  durStack.size = new Size(28, 0);
+  durStack.size = new Size(32, 0);
+  durStack.layoutHorizontally();
+  durStack.addSpacer();
   let durTxt = durStack.addText(formatDuration(conn.duration));
   durTxt.font = Font.systemFont(9);
   durTxt.textColor = TEXT_WHITE;
   durTxt.textOpacity = 0.8;
+  durStack.addSpacer();
 
-  rowOuter.addSpacer();
+  // 4. Exit ou Delay (largeur fixe, centré)
+  let statusStack = rowOuter.addStack();
+  statusStack.size = new Size(28, 0);
+  statusStack.layoutHorizontally();
+  statusStack.addSpacer();
   
-  // 4. Ausstiegsseite (seulement pour train en cours)
-  if (showExit) {
+  if (showExit && isInTransitRow) {
     let exitSide = getExitSide(conn);
     if (exitSide) {
-      let exitTxt = rowOuter.addText(exitSide);
-      exitTxt.font = Font.boldSystemFont(12);
-      exitTxt.textColor = TEXT_WHITE;
+      let exitTxt = statusStack.addText(exitSide);
+      exitTxt.font = Font.boldSystemFont(14);
+      exitTxt.textColor = Color.yellow();
     }
-    rowOuter.addSpacer();
-  }
-  
-  // 5. Status (delay) - pas pour train en cours
-  if (!isInTransitRow) {
+  } else if (!isInTransitRow) {
     const delay = conn.from.delay || 0;
     if (delay > 0) {
-      let d = rowOuter.addText("+" + delay + "'");
+      let d = statusStack.addText("+" + delay + "'");
       d.textColor = DELAY_YELLOW;
       d.font = Font.boldSystemFont(10);
     }
   }
+  statusStack.addSpacer();
 }
 
 if (!inTransit && upcoming.length === 0) {
