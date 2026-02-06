@@ -33,7 +33,7 @@ const DELAY_YELLOW = new Color("#ffcc00");
 /**
  * Daten von der API laden (nur direkte Verbindungen)
  */
-async function fetchConnections() {
+const fetchConnections = async () => {
   // Demander des trains depuis 60 min avant pour capturer ceux en cours (trajet ~1h)
   const now = new Date();
   const earlier = new Date(now.getTime() - 60 * 60 * 1000);
@@ -53,7 +53,7 @@ async function fetchConnections() {
 /**
  * Bestimmt die Ausstiegsseite basierend auf Ankunftsgleis
  */
-function getExitSide(conn) {
+const getExitSide = (conn) => {
   // Essayer d'abord le quai d'arrivée, sinon chercher dans les sections
   let arrPlatform = conn.to.platform;
   if (!arrPlatform && conn.sections && conn.sections.length > 0) {
@@ -87,7 +87,7 @@ function getExitSide(conn) {
 /**
  * Berechnet verbleibende Minuten
  */
-function getCountdown(departureDate) {
+const getCountdown = (departureDate) => {
   const diffMs = departureDate - new Date();
   const diffMin = Math.floor(diffMs / 60000);
   if (diffMin <= 0) return "Jetzt";
@@ -97,7 +97,7 @@ function getCountdown(departureDate) {
 /**
  * Reisedauer Formatierung
  */
-function formatDuration(durationStr) {
+const formatDuration = (durationStr) => {
   let parts = durationStr.split("d");
   let timePart = parts.length > 1 ? parts[1] : parts[0];
   let [h, m] = timePart.split(":");
@@ -108,7 +108,7 @@ function formatDuration(durationStr) {
 /**
  * Prüft ob der Zug direkt fährt (ZRH-Bern direct: ~56-58 min)
  */
-function checkIsDirect(conn) {
+const checkIsDirect = (conn) => {
   let parts = conn.duration.split("d");
   let timePart = parts.length > 1 ? parts[1] : parts[0];
   let [h, m] = timePart.split(":");
@@ -153,7 +153,7 @@ headerStack.addSpacer();
 widget.addSpacer(2);
 
 // Fonction pour afficher une ligne
-function addRow(conn, showExit, isInTransitRow) {
+const addRow = (conn, showExit, isInTransitRow) => {
   let rowOuter = widget.addStack();
   // Couleur: vert si en transit, sinon bleu foncé
   rowOuter.backgroundColor = isInTransitRow ? IN_TRANSIT_BG : DIRECT_BG;
