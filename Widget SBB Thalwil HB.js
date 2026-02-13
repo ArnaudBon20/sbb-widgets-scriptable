@@ -61,10 +61,10 @@ const getExitSide = (conn) => {
     const lastSection = conn.sections[conn.sections.length - 1];
     arrPlatform = lastSection.arrival?.platform;
   }
-  if (!arrPlatform) return "?";
+  if (!arrPlatform) return "";
   arrPlatform = arrPlatform.replace(/!/g, "");
   const platNum = parseInt(arrPlatform);
-  if (isNaN(platNum)) return "?";
+  if (isNaN(platNum)) return "";
   
   // Thalwil → ZRH HB: impair=droite, pair=gauche, sauf 33/34 inversé
   if (TO === "Zürich HB") {
@@ -159,7 +159,7 @@ const addRow = (conn, showExit, isInTransitRow) => {
   } else {
     rowOuter.backgroundColor = isDirect ? DIRECT_BG : NAVY_BLUE;
   }
-  rowOuter.setPadding(6, 8, 6, 8);
+  rowOuter.setPadding(6, 0, 6, 0);
   rowOuter.layoutHorizontally();
   rowOuter.centerAlignContent();
   
@@ -185,7 +185,7 @@ const addRow = (conn, showExit, isInTransitRow) => {
   
   // 2. Gleis (largeur fixe, centré)
   let gleisStack = rowOuter.addStack();
-  gleisStack.size = new Size(36, 0);
+  gleisStack.size = new Size(44, 0);
   gleisStack.layoutHorizontally();
   gleisStack.addSpacer();
   let platform;
