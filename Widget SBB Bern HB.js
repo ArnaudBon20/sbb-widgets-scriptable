@@ -155,7 +155,7 @@ widget.addSpacer(2);
 const addRow = (conn, showExit, isInTransitRow) => {
   let rowOuter = widget.addStack();
   rowOuter.backgroundColor = isInTransitRow ? IN_TRANSIT_BG : DIRECT_BG;
-  rowOuter.setPadding(6, 0, 6, 0);
+  rowOuter.setPadding(6, 8, 6, 8);
   rowOuter.layoutHorizontally();
   rowOuter.centerAlignContent();
   
@@ -217,14 +217,14 @@ const addRow = (conn, showExit, isInTransitRow) => {
   statusStack.layoutHorizontally();
   statusStack.addSpacer();
   
-  if (showExit && isInTransitRow) {
+  if (isInTransitRow) {
     let exitSide = getExitSide(conn);
     if (exitSide) {
       let exitTxt = statusStack.addText(exitSide);
       exitTxt.font = Font.boldSystemFont(14);
       exitTxt.textColor = Color.yellow();
     }
-  } else if (!isInTransitRow) {
+  } else {
     const delay = conn.from.delay || 0;
     if (delay > 0) {
       let d = statusStack.addText("+" + delay + "'");
