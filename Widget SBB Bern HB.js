@@ -134,7 +134,7 @@ const upcoming = allConns
 
 let widget = new ListWidget();
 widget.backgroundColor = DIRECT_BG;
-widget.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);
+widget.refreshAfterDate = new Date(Date.now() + 5 * 60 * 1000);
 widget.setPadding(0, 0, 0, 0);
 
 // Deep Link zur SBB App mit spezifischer Suche
