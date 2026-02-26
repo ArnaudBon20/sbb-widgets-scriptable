@@ -112,7 +112,7 @@ const checkIsDirect = (conn) => {
   let timePart = parts.length > 1 ? parts[1] : parts[0];
   let [h, m] = timePart.split(":");
   let totalMin = parseInt(h) * 60 + parseInt(m);
-  return totalMin <= 60;
+  return totalMin <= 65;
 }
 
 // --- HAUPTLOGIK ---
